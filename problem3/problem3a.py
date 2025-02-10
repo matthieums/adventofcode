@@ -10,7 +10,6 @@ def main():
 
 def parseText(text):
     """parse the hidden function within a string of text and execute them"""
-    enableMultiplication = True
     maxIndex = len(text)
     total_sum = 0
 
@@ -18,7 +17,7 @@ def parseText(text):
     while i < maxIndex:
 
         # check if multiplication operation emerges
-        if enableMultiplication and text[i] == 'm' and text[i + 1: i + 4] == 'ul(':
+        if text[i] == 'm' and text[i + 1: i + 4] == 'ul(':
             i += 4
             extractIndex = i
             numbers = extractNumbers(text, extractIndex, maxIndex)
@@ -27,19 +26,6 @@ def parseText(text):
                 x, y = numbers
                 total_sum += x * y
                 continue
-
-        # check if a do() emerges
-        if not enableMultiplication and text[i] == 'd' and text[i+1: i+4] == 'o()':
-            enableMultiplication = True
-            i += 4
-            continue
-
-        # check if a don't() emerges
-        elif text[i] == 'd' and text[i+1: i+7] == 'on\'t()':
-            enableMultiplication = False
-            i += 7
-            continue
-
         i += 1
 
     return total_sum
